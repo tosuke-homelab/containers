@@ -1,0 +1,37 @@
+name: BIRD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_COLOR: 1
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - uses: earthly/actions-setup@v1
+      with:
+        version: v0.7.15
+    - uses: docker/setup-qemu-action@v2
+      with:
+        platforms: all
+
+    - name: Login to ghcr.io
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@v3
+    - name: Build and push image
+      run: earthly ./bird+all
+      env:
+        EARTHLY_PUSH: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+        EARTHLY_REMOTE_CACHE: ghcr.io/${{ github.repository_owner }}/bird:cache
+
