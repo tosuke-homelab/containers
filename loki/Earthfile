@@ -1,0 +1,116 @@
+VERSION --arg-scope-and-set 0.7
+
+ARG --global setup_image=debian:bookworm-slim
+ARG --global go_version=1.21.0
+ARG --global zig_version=0.11.0
+
+ARG --global loki_git=https://github.com/grafana/loki.git
+ARG --global loki_version=2.8.4
+
+loki-src:
+  ARG USERARCH
+  FROM --platform=linux/$USERARCH ${setup_image}
+  GIT CLONE --branch v$loki_version $loki_git /loki
+  SAVE ARTIFACT /loki
+
+zig:
+  ARG USERARCH
+  FROM --platform=linux/$USERARCH ${setup_image}
+  RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    curl \
+    xz-utils
+
+  IF [ "$USERARCH" = "amd64" ]
+    RUN curl -L -o zig.tar.xz https://ziglang.org/download/$zig_version/zig-linux-x86_64-$zig_version.tar.xz   
+  ELSE IF [ "$USERARCH" = "arm64" ]
+    RUN curl -L -o zig.tar.xz https://ziglang.org/download/$zig_version/zig-linux-aarch64-$zig_version.tar.xz
+  ELSE
+    RUN echo "Unsupported user architecture: $USERARCH" && exit 1
+  END
+  RUN tar -xf zig.tar.xz && mv zig-* /zig && rm zig.tar.xz
+  SAVE ARTIFACT /zig
+
+builder-base:
+  ARG USERARCH
+  FROM --platform=linux/$USERARCH golang:${go_version}
+  SAVE ARTIFACT /go /go
+  SAVE ARTIFACT /usr/local/go /usr/local/go
+
+builder:
+  ARG USERPLATFORM
+  ARG TARGETOS
+  ARG TARGETARCH
+  ARG TARGETVARIANT
+  
+  FROM +builder-base
+  ENV GOOS=$TARGETOS
+  ENV GOARCH=$TARGETARCH
+
+
+  RUN apt-get update && \
+      apt-get install -y --no-install-recommends \
+        libsystemd-dev
+
+  COPY +zig/zig /zig
+  ENV PATH=/zig:$PATH
+  RUN cp -R /usr/include/systemd /usr/local/include/systemd
+  IF [ "$TARGETARCH" = "amd64" ]
+    ENV GOARCH=amd64
+    ENV CC="zig cc -target x86_64-linux-gnu -I/usr/local/include"
+  ELSE IF [ "$TARGETARCH" = "arm64" ]
+    ENV GOARCH=arm64
+    ENV CC="zig cc -target aarch64-linux-gnu -I/usr/local/include"
+  ELSE
+    RUN echo "Unsupported target architecture: $TARGETARCH" && exit 1
+  END
+
+  COPY +loki-src/loki /loki
+  WORKDIR /loki
+
+builder-mips:
+  ARG USERARCH
+  ARG TARGETOS
+  ARG TARGETARCH
+  
+  FROM --platform=linux/$USERARCH debian:stretch
+  
+  COPY ./stretch-sources.list /etc/apt/sources.list
+
+  RUN dpkg --add-architecture mips && \
+      apt-get update && \
+      apt-get install -y --no-install-recommends \
+        git \
+        make \
+        libsystemd-dev \
+        gcc-mips-linux-gnu \
+        libc6-dev-mips-cross
+  RUN cp /usr/mips-linux-gnu/include/gnu/stubs-o32_hard.h /usr/mips-linux-gnu/include/gnu/stubs-o32_soft.h
+  
+  ENV CC="mips-linux-gnu-gcc -msoft-float"
+
+  COPY +builder-base/go /go
+  COPY +builder-base/usr/local/go /usr/local/go
+  ENV PATH=/go/bin:/usr/local/go/bin:$PATH
+  ENV GOOS=$TARGETOS
+  ENV GOARCH=$TARGETARCH
+  ENV GOMIPS=softfloat
+
+  COPY +loki-src/loki /loki
+  WORKDIR /loki
+
+bin-promtail:
+  ARG USERARCH
+  ARG TARGETARCH
+  LOCALLY
+  IF [ "$TARGETARCH" = "mips" ]
+    FROM +builder-mips
+  ELSE
+    FROM +builder
+  END
+
+  RUN CGO_ENABLED=1 \
+      PROMTAIL_JOURNAL_ENABLED=true \
+      GOMIPS=$GOMIPS \
+      make promtail
+  SAVE ARTIFACT /loki/clients/cmd/promtail/promtail promtail AS LOCAL ./result/promtail
