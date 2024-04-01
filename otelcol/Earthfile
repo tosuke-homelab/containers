@@ -1,0 +1,76 @@
+VERSION 0.8
+
+ARG --global IMAGE_NAME = ghcr.io/tosuke-homalab/otelcol
+
+build-image-all-platforms:
+    ARG --required BASE_DIR
+    ARG TAG_PREFIX
+    BUILD --platform linux/amd64 --platform linux/arm64 +build-image --BASE_DIR=${BASE_DIR} --TAG_PREFIX=${TAG_PREFIX}
+
+test-all-platforms:
+    ARG --required BASE_DIR
+    BUILD --pass-args --platform linux/amd64 --platform linux/arm64 +test --BASE_DIR=${BASE_DIR}
+
+build-image:
+    ARG EARTHLY_GIT_BRANCH
+    ARG EARTHLY_GIT_SHORT_HASH
+    ARG NATIVEPLATFORM
+    ARG TAG_PREFIX
+    ARG --required BASE_DIR
+    FROM --platform=$NATIVEPLATFORM +tools
+    BUILD --pass-args +image --TAG="${TAG_PREFIX}${EARTHLY_GIT_SHORT_HASH}"
+    IF [ "${EARTHLY_GIT_BRANCH}" = "main" ]
+        BUILD --pass-args +image --TAG="${TAG_PREFIX}latest"
+    END
+
+test:
+    ARG --required BASE_DIR
+    FROM debian:bullseye-slim
+    COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
+    COPY +bin/otelcol /otelcol
+    RUN /otelcol validate --config=file:/etc/otelcol/config.yaml
+
+tools:
+    FROM golang:1.22
+    ENV GOMODCACHE /go/pkg/mod
+    ENV GOCACHE /go-cache
+    RUN --mount=type=cache,sharing=locked,target=/go/mod/cache/ --mount=type=cache,target=/go-cache/ \
+        go install go.opentelemetry.io/collector/cmd/builder@v0.97.0 && \
+        go install github.com/mikefarah/yq/v4@v4.43.1
+    SAVE ARTIFACT /go/bin/builder builder AS LOCAL bin/builder
+    SAVE IMAGE --cache-hint
+
+bin:
+    ARG TARGETOS
+    ARG TARGETARCH
+    ARG NATIVEPLATFORM
+    ARG --required BASE_DIR
+    FROM --platform=$NATIVEPLATFORM +tools
+    WORKDIR /work
+    COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
+    RUN --mount=type=cache,sharing=locked,target=/go/mod/cache/ --mount=type=cache,target=/go-cache/ \
+        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder --config /work/manifest.yaml
+    SAVE ARTIFACT /work/build/otelcol otelcol AS LOCAL bin/otelcol
+
+image:
+    ARG EARTHLY_GIT_ORIGIN_URL
+    ARG EARTHLY_GIT_HASH
+    ARG NATIVEPLATFORM
+    ARG --required TAG
+    ARG --required BASE_DIR
+
+    FROM --platform=$NATIVEPLATFORM +tools
+    WORKDIR /work
+    COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
+    LET description = $(yq '.dist.description' /work/manifest.yaml)
+
+    FROM gcr.io/distroless/static:nonroot
+    COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
+    COPY --pass-args --chmod 755 +bin/otelcol /otelcol
+    ENTRYPOINT ["/otelcol"]
+    CMD ["--config", "file:/etc/otelcol/config.yaml"]
+    LABEL org.opencontainers.image.url="${EARHTLY_GIT_ORIGIN_URL}"
+    LABEL org.opencontainers.image.revision="${EARTHLY_GIT_HASH}"
+    LABEL org.opencontainers.image.description="${description}"
+    SAVE IMAGE --push "${IMAGE_NAME}:${TAG}"
+

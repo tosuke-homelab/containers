@@ -1,0 +1,45 @@
+extensions:
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  loki:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:3500
+      grpc:
+        endpoint: 0.0.0.0:3600
+    use_incoming_timestamp: true
+  syslog/bsd:
+    protocol: rfc3164
+    udp:
+      listen_address: 0.0.0.0:514
+
+processors:
+  batch:
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  extensions: [zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+    logs:
+      receivers: [otlp, loki, syslog/bsd]
+      processors: [batch]
+      exporters: [debug]
