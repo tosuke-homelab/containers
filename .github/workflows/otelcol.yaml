@@ -37,5 +37,7 @@ jobs:
 
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Build otelcol for home router
-        run: earthly --push ./otelcol/router+all --IMAGE_NAME="${IMAGE_NAME}"
+        run: earthly --org tosuke --sat xsmall-arm64 --push ./otelcol/router+all --IMAGE_NAME="${IMAGE_NAME}"
+        env:
+          EARTHLY_TOKEN: ${{ secrets.EARTHLY_TOKEN }}
 
