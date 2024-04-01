@@ -1,0 +1,40 @@
+name: OpenTelemtry Collector
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - otelcol/**
+      - .github/workflows/**
+  pull_request:
+    paths:
+      - otelcol/**
+      - .github/workflows/**
+
+jobs:
+  earthly:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      FORCE_COLOR: 1
+      EARTHLY_CI: true
+      EARTHLY_REMOTE_CACHE: ghcr.io/${{ github.repository_owner }}/otelcol:cache
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/otelcol
+    steps:
+      - uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.0
+      - uses: docker/setup-qemu-action@v3
+      - name: Login to ghcr.io
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+      - name: Build otelcol for home router
+        run: earthly --push ./otelcol/router+all --IMAGE_NAME="${IMAGE_NAME}"
+
