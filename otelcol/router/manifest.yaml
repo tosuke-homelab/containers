@@ -1,0 +1,26 @@
+dist:
+  name: otelcol
+  description: OpenTelemetry Collector for network facilities
+  output_path: ./build
+  otelcol_version: 0.97.0
+  debug_compilation: false
+
+receivers:
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.97.0
+  # - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver v0.97.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/lokireceiver v0.97.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.97.0
+
+exporters:
+  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.97.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.97.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.97.0
+
+extensions:
+  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.97.0
+
+processors:
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.97.0
+
+replaces:
+  - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver => github.com/tosuke-lab/opentelemetry-collector-contrib-prometheusremotewrite/receiver/prometheusremotewritereceiver 909646fa7bdfa1a233c4201e4620fdb13a966f7b

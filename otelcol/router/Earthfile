@@ -1,0 +1,12 @@
+VERSION 0.8
+
+IMPORT ../ AS common
+
+ARG --global BASE_DIR = ./router/
+ARG --global TAG_PREFIX = router-
+
+all:
+    BUILD --pass-args common+all
+
+test:
+    BUILD --pass-args common+test
