@@ -19,7 +19,7 @@ jobs:
       packages: write
     env:
       # renovate: datasource=github-releases depName=earthly/earthly versioning=semver
-      EARTHLY_VERSION: v0.8.0
+      EARTHLY_VERSION: v0.8.6
       FORCE_COLOR: 1
       EARTHLY_CI: true
       IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/otelcol
