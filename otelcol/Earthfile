@@ -70,12 +70,12 @@ image:
     LET description = $(yq '.dist.description' /work/manifest.yaml)
 
     FROM gcr.io/distroless/static:nonroot
+    LABEL org.opencontainers.image.src="https://github.com/tosuke-homelab/containers"
+    LABEL org.opencontainers.image.revision="${EARTHLY_GIT_HASH}"
+    LABEL org.opencontainers.image.description="${description}"
     COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
     COPY --chmod 755 +bin/otelcol /otelcol
     ENTRYPOINT ["/otelcol"]
     CMD ["--config", "file:/etc/otelcol/config.yaml"]
-    LABEL org.opencontainers.image.url="${EARHTLY_GIT_ORIGIN_URL}"
-    LABEL org.opencontainers.image.revision="${EARTHLY_GIT_HASH}"
-    LABEL org.opencontainers.image.description="${description}"
     SAVE IMAGE --push "${IMAGE_NAME}:${TAG}"
 
