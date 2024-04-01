@@ -22,7 +22,6 @@ jobs:
       EARTHLY_VERSION: v0.8.0
       FORCE_COLOR: 1
       EARTHLY_CI: true
-      EARTHLY_REMOTE_CACHE: ghcr.io/${{ github.repository_owner }}/otelcol:cache
       IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/otelcol
     steps:
       - uses: earthly/actions-setup@v1
