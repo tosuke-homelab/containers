@@ -18,6 +18,8 @@ jobs:
       contents: read
       packages: write
     env:
+      # renovate: datasource=github-releases depName=earthly/earthly versioning=semver
+      EARTHLY_VERSION: v0.8.0
       FORCE_COLOR: 1
       EARTHLY_CI: true
       EARTHLY_REMOTE_CACHE: ghcr.io/${{ github.repository_owner }}/otelcol:cache
@@ -25,7 +27,7 @@ jobs:
     steps:
       - uses: earthly/actions-setup@v1
         with:
-          version: v0.8.0
+          version: ${{ env.EARTHLY_VERSION }}
       - uses: docker/setup-qemu-action@v3
       - name: Login to ghcr.io
         uses: docker/login-action@v2
