@@ -1,30 +1,30 @@
 VERSION 0.8
 
-ARG --global IMAGE_NAME = ghcr.io/tosuke-homalab/otelcol
+ARG --global IMAGE_NAME = otelcol
+ARG --global BASE_DIR
+ARG --global TAG_PREFIX
+
+all:
+    BUILD +test-all-platforms
+    BUILD +build-image-all-platforms
 
 build-image-all-platforms:
-    ARG --required BASE_DIR
-    ARG TAG_PREFIX
-    BUILD --platform linux/amd64 --platform linux/arm64 +build-image --BASE_DIR=${BASE_DIR} --TAG_PREFIX=${TAG_PREFIX}
+    BUILD --platform linux/amd64 --platform linux/arm64 +build-image
 
 test-all-platforms:
-    ARG --required BASE_DIR
-    BUILD --pass-args --platform linux/amd64 --platform linux/arm64 +test --BASE_DIR=${BASE_DIR}
+    BUILD --platform linux/amd64 --platform linux/arm64 +test
 
 build-image:
     ARG EARTHLY_GIT_BRANCH
     ARG EARTHLY_GIT_SHORT_HASH
     ARG NATIVEPLATFORM
-    ARG TAG_PREFIX
-    ARG --required BASE_DIR
     FROM --platform=$NATIVEPLATFORM +tools
-    BUILD --pass-args +image --TAG="${TAG_PREFIX}${EARTHLY_GIT_SHORT_HASH}"
+    BUILD +image --TAG="${TAG_PREFIX}${EARTHLY_GIT_SHORT_HASH}"
     IF [ "${EARTHLY_GIT_BRANCH}" = "main" ]
-        BUILD --pass-args +image --TAG="${TAG_PREFIX}latest"
+        BUILD +image --TAG="${TAG_PREFIX}latest"
     END
 
 test:
-    ARG --required BASE_DIR
     FROM debian:bullseye-slim
     COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
     COPY +bin/otelcol /otelcol
@@ -41,7 +41,6 @@ tools:
     SAVE IMAGE --cache-hint
 
 otel-modules:
-    ARG --required BASE_DIR
     FROM +tools
     WORKDIR /work
     COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
@@ -64,7 +63,6 @@ image:
     ARG EARTHLY_GIT_HASH
     ARG NATIVEPLATFORM
     ARG --required TAG
-    ARG --required BASE_DIR
 
     FROM --platform=$NATIVEPLATFORM +tools
     WORKDIR /work
@@ -73,7 +71,7 @@ image:
 
     FROM gcr.io/distroless/static:nonroot
     COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
-    COPY --pass-args --chmod 755 +bin/otelcol /otelcol
+    COPY --chmod 755 +bin/otelcol /otelcol
     ENTRYPOINT ["/otelcol"]
     CMD ["--config", "file:/etc/otelcol/config.yaml"]
     LABEL org.opencontainers.image.url="${EARHTLY_GIT_ORIGIN_URL}"
