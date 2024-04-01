@@ -40,16 +40,23 @@ tools:
     SAVE ARTIFACT /go/bin/builder builder AS LOCAL bin/builder
     SAVE IMAGE --cache-hint
 
+otel-modules:
+    ARG --required BASE_DIR
+    FROM +tools
+    WORKDIR /work
+    COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
+    RUN --mount=type=cache,sharing=locked,target=/go/mod/cache/ \
+        builder --config /work/manifest.yaml --skip-compilation
+
 bin:
     ARG TARGETOS
     ARG TARGETARCH
     ARG NATIVEPLATFORM
-    ARG --required BASE_DIR
-    FROM --platform=$NATIVEPLATFORM +tools
-    WORKDIR /work
-    COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
-    RUN --mount=type=cache,sharing=locked,target=/go/mod/cache/ --mount=type=cache,target=/go-cache/ \
-        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder --config /work/manifest.yaml
+    FROM --platform=$NATIVEPLATFORM +otel-modules
+    RUN --mount=type=cache,target=/go-cache/ \
+        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder \
+            --skip-generate --skip-get-modules \
+            --config /work/manifest.yaml
     SAVE ARTIFACT /work/build/otelcol otelcol AS LOCAL bin/otelcol
 
 image:
