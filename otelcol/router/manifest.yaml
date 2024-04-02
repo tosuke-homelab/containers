@@ -7,7 +7,6 @@ dist:
 
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.97.0
-  # - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver v0.97.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/lokireceiver v0.97.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.97.0
 
@@ -23,4 +22,4 @@ processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.97.0
 
 replaces:
-  - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver => github.com/tosuke-lab/opentelemetry-collector-contrib-prometheusremotewrite/receiver/prometheusremotewritereceiver 909646fa7bdfa1a233c4201e4620fdb13a966f7b
+  - github.com/influxdata/go-syslog/v3 => github.com/tosuke-lab/go-syslog/v3 d58f4fc5995b3f6b6940dca0a0da89306292e82a

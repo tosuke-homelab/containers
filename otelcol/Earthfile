@@ -34,7 +34,7 @@ tools:
     FROM golang:1.22
     ENV GOMODCACHE /go/pkg/mod
     ENV GOCACHE /go-cache
-    RUN --mount=type=cache,sharing=locked,target=/go/mod/cache/ --mount=type=cache,target=/go-cache/ \
+    RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod/ --mount=type=cache,target=/go-cache/ \
         go install go.opentelemetry.io/collector/cmd/builder@v0.97.0 && \
         go install github.com/mikefarah/yq/v4@v4.43.1
     SAVE ARTIFACT /go/bin/builder builder AS LOCAL bin/builder
@@ -44,7 +44,7 @@ otel-modules:
     FROM +tools
     WORKDIR /work
     COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
-    RUN --mount=type=cache,sharing=locked,target=/go/mod/cache/ \
+    RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod/ \
         builder --config /work/manifest.yaml --skip-compilation
 
 bin:
