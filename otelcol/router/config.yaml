@@ -17,6 +17,8 @@ receivers:
     protocol: rfc3164
     udp:
       listen_address: 0.0.0.0:514
+  filelog:
+    include: /var/log/messages
 
 processors:
   memory_limiter:
@@ -32,6 +34,10 @@ processors:
       - key: host.name
         value: example
         action: insert
+  resourcedetection:
+    detectors: [env]
+    timeout: 2s
+    override: false
 
 exporters:
   loki:
@@ -50,7 +56,14 @@ service:
       receivers: [otlp]
       processors: [memory_limiter, batch]
       exporters: [debug]
-    logs:
+    logs/remote:
       receivers: [otlp, syslog/bsd]
       processors: [memory_limiter, batch]
+      exporters: [debug]
+    logs/local:
+      receivers: [filelog]
+      processors:
+        - memory_limiter
+        - batch
+        - resourcedetection
       exporters: [debug]
