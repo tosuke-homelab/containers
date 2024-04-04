@@ -2,7 +2,7 @@ name: OpenTelemtry Collector
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths:
       - otelcol/**
       - .github/workflows/**
@@ -10,6 +10,10 @@ on:
     paths:
       - otelcol/**
       - .github/workflows/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   earthly:
