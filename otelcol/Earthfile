@@ -1,8 +1,8 @@
 VERSION 0.8
 
-ARG --global IMAGE_NAME = otelcol
-ARG --global BASE_DIR
-ARG --global TAG_PREFIX
+all:
+    ARG repository=otelcol
+    BUILD ./router+all --repository=${repository}
 
 SETUP:
     FUNCTION
