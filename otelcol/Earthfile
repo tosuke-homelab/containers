@@ -31,8 +31,10 @@ BIN:
     ARG TARGETOS
     ARG TARGETARCH
     DO +SETUP
-    RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod/ --mount=type=cache,target=/go-cache/ \
-        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder --config /work/manifest.yaml
+    RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod/ \
+        builder --skip-compilation --config /work/manifest.yaml
+    RUN --mount=type=cache,target=/go-cache/ \
+        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder --skip-generate --skip-get-modules --config /work/manifest.yaml
     ENV OTELCOL_PATH=/work/build/otelcol
 
 SET_IMAGE_CONFIG:
