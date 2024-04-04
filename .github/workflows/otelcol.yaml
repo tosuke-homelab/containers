@@ -22,7 +22,7 @@ jobs:
       EARTHLY_VERSION: v0.8.6
       FORCE_COLOR: 1
       EARTHLY_CI: true
-      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/otelcol
+      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/otelcol
     steps:
       - uses: earthly/actions-setup@v1
         with:
@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Build otelcol for home router
-        run: earthly --org tosuke --sat xsmall-arm64 --push ./otelcol/router+all --IMAGE_NAME="${IMAGE_NAME}"
+        run: earthly --org tosuke --sat xsmall-arm64 --push ./otelcol/router+all --repository="${IMAGE_REPO}"
         env:
           EARTHLY_TOKEN: ${{ secrets.EARTHLY_TOKEN }}
 

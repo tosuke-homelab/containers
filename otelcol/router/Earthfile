@@ -2,11 +2,46 @@ VERSION 0.8
 
 IMPORT ../ AS common
 
-ARG --global BASE_DIR = ./router/
-ARG --global TAG_PREFIX = router-
+ARG --global repository = ghcr.io/tosuke-homelab/otelcol
+
+ARG NATIVEPLATFORM
+FROM --platform=$NATIVEPLATFORM common+tools
+DO common+SETUP
 
 all:
-    BUILD --pass-args common+all
+    BUILD --platform linux/amd64 --platform linux/arm64 +test
+    BUILD +docker
+
+bin:
+    DO common+BIN
+    SAVE ARTIFACT ${OTELCOL_PATH} otelcol
 
 test:
-    BUILD --pass-args common+test
+    FROM common+test-image
+    COPY +bin/otelcol /otelcol
+    DO common+TEST
+
+docker:
+    DO common+SET_DOCKER_TAGS --tag_prefix=router-
+    FOR tag IN ${DOCKER_TAGS}
+        BUILD --platform linux/amd64 --platform linux/arm64 +docker-image --image=${repository}:${tag}
+    END
+
+docker-image:
+    ARG image
+    FROM common+base-image
+    COPY --chmod=755 +bin/otelcol /otelcol
+    DO common+SET_IMAGE_CONFIG
+    SAVE IMAGE --push ${image}
+
+base-image:
+    FROM debian:bookworm-slim
+    
+    RUN apt-get update \
+        && apt-get install --no-install-recommends -y systemd \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    RUN usermod -a -G systemd-journal nobody
+    USER nobody
+    SAVE IMAGE --cache-hint
+

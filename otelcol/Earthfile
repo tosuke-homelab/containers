@@ -4,31 +4,53 @@ ARG --global IMAGE_NAME = otelcol
 ARG --global BASE_DIR
 ARG --global TAG_PREFIX
 
-all:
-    BUILD +test-all-platforms
-    BUILD +build-image-all-platforms
+SETUP:
+    FUNCTION
+    WORKDIR /work
+    COPY manifest.yaml /work/manifest.yaml
+    COPY config.yaml /work/config.yaml
 
-build-image-all-platforms:
-    BUILD --platform linux/amd64 --platform linux/arm64 +build-image
-
-test-all-platforms:
-    BUILD --platform linux/amd64 --platform linux/arm64 +test
-
-build-image:
+SET_DOCKER_TAGS:
+    FUNCTION
     ARG EARTHLY_GIT_BRANCH
     ARG EARTHLY_GIT_SHORT_HASH
-    ARG NATIVEPLATFORM
-    FROM --platform=$NATIVEPLATFORM +tools
-    BUILD +image --TAG="${TAG_PREFIX}${EARTHLY_GIT_SHORT_HASH}"
+    ARG tag_prefix = ""
+    LET tags = "${tag_prefix}${EARTHLY_GIT_SHORT_HASH}"
     IF [ "${EARTHLY_GIT_BRANCH}" = "main" ]
-        BUILD +image --TAG="${TAG_PREFIX}latest"
+        SET tags = "${tags} ${tag_prefix}latest"
     END
+    ENV DOCKER_TAGS=${tags}
 
-test:
-    FROM debian:bullseye-slim
-    COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
-    COPY +bin/otelcol /otelcol
-    RUN /otelcol validate --config=file:/etc/otelcol/config.yaml
+TEST:
+    FUNCTION
+    COPY --chmod=644 config.yaml /etc/otelcol/config.yaml
+    RUN [ "/otelcol", "validate", "--config=file:/etc/otelcol/config.yaml" ]
+
+BIN:
+    FUNCTION
+    ARG TARGETOS
+    ARG TARGETARCH
+    DO +SETUP
+    RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod/ --mount=type=cache,target=/go-cache/ \
+        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder --config /work/manifest.yaml
+    ENV OTELCOL_PATH=/work/build/otelcol
+
+SET_IMAGE_CONFIG:
+    FUNCTION
+    ARG image_src="https://github.com/tosuke-homelab/containers"
+    ARG EARTHLY_GIT_HASH
+    LABEL org.opencontainers.image.src="${image_src}"
+    LABEL org.opencontainers.image.revision="${EARTHLY_GIT_HASH}"
+    COPY --chmod=644 config.yaml /etc/otelcol/config.yaml
+    ENTRYPOINT ["/otelcol"]
+    CMD ["--config", "file:/etc/otelcol/config.yaml"]
+
+base-image:
+    FROM gcr.io/distroless/static-debian12:nonroot
+
+test-image:
+    FROM debian:bookworm-slim
+    USER nobody
 
 tools:
     FROM golang:1.22
@@ -39,43 +61,4 @@ tools:
         go install github.com/mikefarah/yq/v4@v4.43.1
     SAVE ARTIFACT /go/bin/builder builder AS LOCAL bin/builder
     SAVE IMAGE --cache-hint
-
-otel-modules:
-    FROM +tools
-    WORKDIR /work
-    COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
-    RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod/ \
-        builder --config /work/manifest.yaml --skip-compilation
-
-bin:
-    ARG TARGETOS
-    ARG TARGETARCH
-    ARG NATIVEPLATFORM
-    FROM --platform=$NATIVEPLATFORM +otel-modules
-    RUN --mount=type=cache,target=/go-cache/ \
-        CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} builder \
-            --skip-generate --skip-get-modules \
-            --config /work/manifest.yaml
-    SAVE ARTIFACT /work/build/otelcol otelcol AS LOCAL bin/otelcol
-
-image:
-    ARG EARTHLY_GIT_ORIGIN_URL
-    ARG EARTHLY_GIT_HASH
-    ARG NATIVEPLATFORM
-    ARG --required TAG
-
-    FROM --platform=$NATIVEPLATFORM +tools
-    WORKDIR /work
-    COPY "${BASE_DIR}manifest.yaml" /work/manifest.yaml
-    LET description = $(yq '.dist.description' /work/manifest.yaml)
-
-    FROM gcr.io/distroless/static:nonroot
-    LABEL org.opencontainers.image.src="https://github.com/tosuke-homelab/containers"
-    LABEL org.opencontainers.image.revision="${EARTHLY_GIT_HASH}"
-    LABEL org.opencontainers.image.description="${description}"
-    COPY --chmod 644 "${BASE_DIR}config.yaml" /etc/otelcol/config.yaml
-    COPY --chmod 755 +bin/otelcol /otelcol
-    ENTRYPOINT ["/otelcol"]
-    CMD ["--config", "file:/etc/otelcol/config.yaml"]
-    SAVE IMAGE --push "${IMAGE_NAME}:${TAG}"
 
