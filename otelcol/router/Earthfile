@@ -17,7 +17,7 @@ bin:
     SAVE ARTIFACT ${OTELCOL_PATH} otelcol
 
 test:
-    FROM common+test-image
+    FROM +base-image
     COPY +bin/otelcol /otelcol
     DO common+TEST
 
@@ -29,7 +29,7 @@ docker:
 
 docker-image:
     ARG image
-    FROM common+base-image
+    FROM +base-image
     COPY --chmod=755 +bin/otelcol /otelcol
     DO common+SET_IMAGE_CONFIG
     SAVE IMAGE --push ${image}
