@@ -5,6 +5,9 @@ dist:
   otelcol_version: 0.97.0
   debug_compilation: false
 
+connectors:
+  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.97.0
+
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.97.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.97.0
