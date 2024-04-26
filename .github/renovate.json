@@ -10,6 +10,11 @@
       "groupName": "OpenTelemetry Collector Monorepo",
       "matchDatasources": ["go"],
       "matchPackagePrefixes": ["go.opentelemetry.io/collector/"]
+    },
+    {
+      "groupName": "OpenTelemetry Collector Contrib Monorepo",
+      "matchDatasources": ["go"],
+      "matchPackagePrefixes": ["github.com/open-telemetry/opentelemetry-collector-contrib/"]
     }
   ],
   "customManagers": [
