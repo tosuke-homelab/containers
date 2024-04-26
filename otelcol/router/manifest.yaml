@@ -2,32 +2,32 @@ dist:
   name: otelcol
   description: OpenTelemetry Collector for network facilities
   output_path: ./build
-  otelcol_version: 0.97.0
+  otelcol_version: 0.99.0
   debug_compilation: false
 
 connectors:
-  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.97.0
+  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.99.0
 
 receivers:
-  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.97.0
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.99.0
 
 exporters:
-  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.97.0
-  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.97.0
+  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.99.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.99.0
 
 extensions:
-  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.97.0
+  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.99.0
 
 processors:
-  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.97.0
-  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.97.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.97.0
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.99.0
+  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.99.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.99.0
 
 replaces:
   - github.com/influxdata/go-syslog/v3 => github.com/tosuke-lab/go-syslog/v3 d58f4fc5995b3f6b6940dca0a0da89306292e82a
