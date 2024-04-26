@@ -4,5 +4,15 @@
     "config:base",
     "helpers:pinGitHubActionDigests",
     "regexManagers:githubActionsVersions"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["/otelcol/.+/manifest\\.ya?ml$"],
+      "matchStrings": [
+        "gomod:\\s*(?<depName>[^\\s]+)\\s+(?<currentValue>[\\w\\.\\-]+)"
+      ],
+      "datasourceTemplate": "go"
+    }
   ]
 }
