@@ -5,6 +5,13 @@
     "helpers:pinGitHubActionDigests",
     "regexManagers:githubActionsVersions"
   ],
+  "packageRules": [
+    {
+      "groupName": "OpenTelemetry Collector Monorepo",
+      "matchDatasources": ["go"],
+      "matchPackagePrefixes": ["go.opentelemetry.io/collector/"]
+    }
+  ],
   "customManagers": [
     {
       "customType": "regex",
