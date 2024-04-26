@@ -8,11 +8,12 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["/otelcol/.+/manifest\\.ya?ml$"],
+      "fileMatch": ["(^|/)manifest\\.ya?ml$"],
       "matchStrings": [
         "gomod:\\s*(?<depName>[^\\s]+)\\s+(?<currentValue>[\\w\\.\\-]+)"
       ],
-      "datasourceTemplate": "go"
+      "datasourceTemplate": "go",
+      "versioningTemplate": "semver"
     }
   ]
 }
