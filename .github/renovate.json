@@ -21,6 +21,14 @@
       ],
       "datasourceTemplate": "go",
       "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)manifest\\.ya?ml$"],
+      "matchStrings": ["otelcol_version:\\s*(?<currentValue>[\\w\\.\\-]+)"],
+      "depNameTemplate": "go.opentelemetry.io/collector/otelcol",
+      "datasourceTemplate": "go",
+      "versioningTemplate": "semver"
     }
   ]
 }
