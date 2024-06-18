@@ -1,7 +1,7 @@
 dist:
   name: otelcol
   description: OpenTelemetry Collector for network facilities
-  output_path: ./build
+  output_path: .
   otelcol_version: 0.102.1
   debug_compilation: false
 
