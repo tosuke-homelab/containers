@@ -5,6 +5,9 @@
     "helpers:pinGitHubActionDigests",
     "regexManagers:githubActionsVersions"
   ],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
   "packageRules": [
     {
       "groupName": "OpenTelemetry Collector Monorepo",
