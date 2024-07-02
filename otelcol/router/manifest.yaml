@@ -10,24 +10,24 @@ connectors:
 
 receivers:
   - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.104.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.101.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.101.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.101.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.104.0
 
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.104.0
   - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.104.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.101.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.104.0
 
 extensions:
   - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.104.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.101.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.104.0
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.104.0
   - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.104.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.101.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.101.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.104.0
 
 replaces:
   - github.com/influxdata/go-syslog/v3 => github.com/tosuke-lab/go-syslog/v3 d58f4fc5995b3f6b6940dca0a0da89306292e82a
