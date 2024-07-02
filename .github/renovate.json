@@ -5,6 +5,7 @@
     "helpers:pinGitHubActionDigests",
     "regexManagers:githubActionsVersions"
   ],
+  "postUpdateOptions": ["gomodTidy"],
   "packageRules": [
     {
       "groupName": "OpenTelemetry Collector Monorepo",
@@ -14,7 +15,9 @@
     {
       "groupName": "OpenTelemetry Collector Contrib Monorepo",
       "matchDatasources": ["go"],
-      "matchPackagePrefixes": ["github.com/open-telemetry/opentelemetry-collector-contrib/"]
+      "matchPackagePrefixes": [
+        "github.com/open-telemetry/opentelemetry-collector-contrib/"
+      ]
     }
   ],
   "customManagers": [
@@ -32,6 +35,15 @@
       "fileMatch": ["(^|/)manifest\\.ya?ml$"],
       "matchStrings": ["otelcol_version:\\s*(?<currentValue>[\\w\\.\\-]+)"],
       "depNameTemplate": "go.opentelemetry.io/collector/otelcol",
+      "datasourceTemplate": "go",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.go$"],
+      "matchStrings": [
+        "//go:generate go run (?<depName>[^\\s]+)@(?<currentValue>[\\w\\.\\-]+)"
+      ],
       "datasourceTemplate": "go",
       "versioningTemplate": "semver"
     }
