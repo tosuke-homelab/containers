@@ -11,37 +11,103 @@ on:
       - otelcol/**
       - .github/workflows/**
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  earthly:
+  go-checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: otelcol/router
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.22"
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            /go/pkg/mod
+          key: ${{ runner.os }}-go-otelcol-router-${{ hashFiles('otelcol/router/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-otelcol-router-
+
+      - name: Install deps
+        run: go mod download
+
+      - name: Run go generate
+        run: go generate ./...
+      - name: Check for diffs
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "There are changes after running 'go generate'."
+            git diff
+            exit 1
+          fi
+
+      - name: Build otelcol
+        run: go build -o otelcol
+      - name: Validate config
+        run: ./otelcol validate --config=file:./config.yaml
+
+  docker:
+    needs: [go-checks]
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    env:
-      # renovate: datasource=github-releases depName=earthly/earthly versioning=semver
-      EARTHLY_VERSION: v0.8.14
-      FORCE_COLOR: 1
-      EARTHLY_CI: true
-      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/otelcol
     steps:
-      - uses: earthly/actions-setup@v1
-        with:
-          version: ${{ env.EARTHLY_VERSION }}
-      - uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-qemu-action@v3
+
       - name: Login to ghcr.io
-        uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-      - name: Build otelcol
-        run: earthly --max-remote-cache ./otelcol+all --repository="${IMAGE_REPO}"
-        env:
-          EARTHLY_PUSH: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
-          EARTHLY_REMOTE_CACHE: ghcr.io/${{ github.repository_owner }}/otelcol:cache
+      - name: Cache Go modules
+        id: go-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            go-pkg-mod
+            go-build
+          key: docker-otelcol-router-${{ hashFiles('otelcol/router/go.sum') }}
+          restore-keys: |
+            docker-otelcol-router-
+      - name: Inject Go Cache
+        uses: reproducible-containers/buildkit-cache-dance@v3
+        with:
+          cache-map: |
+            {
+              "go-build": "/root/.cache/go-build",
+              "go-pkg-mod": "/go/pkg/mod"
+            }
+          skip-extraction: ${{ steps.go-cache.outputs.cache-hit }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/tosuke-homelab/otelcol/router
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: "otelcol/router"
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: |
+            linux/amd64
+            linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
