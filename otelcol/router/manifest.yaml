@@ -2,30 +2,30 @@ dist:
   name: otelcol
   description: OpenTelemetry Collector for network facilities
   output_path: .
-  otelcol_version: 0.102.1
+  otelcol_version: 0.104.0
   debug_compilation: false
 
 connectors:
-  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.102.1
+  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.104.0
 
 receivers:
-  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.102.1
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.104.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.101.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.101.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.101.0
 
 exporters:
-  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.102.1
-  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.102.1
+  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.104.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.104.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.101.0
 
 extensions:
-  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.102.1
+  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.104.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.101.0
 
 processors:
-  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.102.1
-  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.102.1
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.104.0
+  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.104.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.101.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.101.0
 
