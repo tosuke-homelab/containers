@@ -13,6 +13,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.104.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.104.0
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/collector/component v0.104.0

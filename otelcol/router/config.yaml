@@ -27,6 +27,8 @@ receivers:
     units:
       - ssh
     priority: info
+  podman_stats:
+    endpoint: unix://var/run/podman/podman.sock
 
 processors:
   memory_limiter:
