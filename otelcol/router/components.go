@@ -25,6 +25,7 @@ import (
 	filelogreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver"
 	journaldreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver"
 	hostmetricsreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver"
+	podmanreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver"
 )
 
 func components() (otelcol.Factories, error) {
@@ -45,6 +46,7 @@ func components() (otelcol.Factories, error) {
 		filelogreceiver.NewFactory(),
 		journaldreceiver.NewFactory(),
 		hostmetricsreceiver.NewFactory(),
+		podmanreceiver.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
