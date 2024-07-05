@@ -165,5 +165,3 @@ require (
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/influxdata/go-syslog/v3 => github.com/tosuke-lab/go-syslog/v3 v3.0.0-20240402220021-d58f4fc5995b
