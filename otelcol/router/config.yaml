@@ -6,6 +6,9 @@ extensions:
       username: username
       password: password
 
+connectors:
+  forward:
+
 receivers:
   otlp:
     protocols:
@@ -41,10 +44,13 @@ processors:
         action: insert
 
 exporters:
-  loki:
-    endpoint: https://loki.example.com:3100/loki/api/v1/push
+  nop:
   debug:
     verbosity: detailed
+  otlp:
+    endpoint: injest.otlp.example.com:443
+  otlphttp:
+    endpoint: http://otlphttp.exampe.com
 
 service:
   extensions: [zpages]
