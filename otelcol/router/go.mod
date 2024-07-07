@@ -9,6 +9,7 @@ toolchain go1.22.5
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.104.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.104.0
