@@ -27,6 +27,15 @@ receivers:
     units:
       - ssh
     priority: info
+  hostmetrics:
+    scrapers:
+      cpu:
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: prometheus
+          static_configs:
+            - targets: ["prometheus:9090"]
   podman_stats:
     endpoint: unix://var/run/podman/podman.sock
 
@@ -62,7 +71,7 @@ service:
       processors: [memory_limiter, batch]
       exporters: [debug]
     metrics:
-      receivers: [otlp]
+      receivers: [otlp, hostmetrics, prometheus, podman_stats]
       processors: [memory_limiter, batch]
       exporters: [debug]
     logs/remote:
