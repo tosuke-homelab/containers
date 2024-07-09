@@ -512,6 +512,8 @@ github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributespr
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.104.0/go.mod h1:eHsCNhiPuHFE5sKlsKzcos4gjkDF0LGnx6RJ/bGb4xw=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.104.0 h1:Dust79ten+1/q92AgOLdnBnQDCsVT5rjl0/eSKFLdYo=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.104.0/go.mod h1:evkdeLcXutvRAz202BdwNk2g3+Y/mxVqX7hhDIJId5k=
+github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricstransformprocessor v0.104.0 h1:T//ei58m9SXHjVHiilv05zwdD1KDLbEh0BYizguXX/A=
+github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricstransformprocessor v0.104.0/go.mod h1:Qpn0164cTtlSK803kPjFgOnsKy8umipsPPQK84hHv2Q=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.104.0 h1:3eBOsSL2XmD/3Una1LcghKGATvJzwPpHEH/zZEW3GEA=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.104.0/go.mod h1:vpRTdMLbw7Kj5oxqUFIp4y75ta1uhtmVdDu6XDOwkvI=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.104.0 h1:m+GTXZxfvajyiC2Tb+ItpbUvSJs8jtZUDwHOTUqU8GQ=
