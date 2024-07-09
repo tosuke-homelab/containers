@@ -76,7 +76,6 @@ jobs:
         with:
           path: |
             go-pkg-mod
-            go-build
           key: docker-otelcol-router-${{ hashFiles('otelcol/router/go.sum') }}
           restore-keys: |
             docker-otelcol-router-
@@ -85,7 +84,6 @@ jobs:
         with:
           cache-map: |
             {
-              "go-build": "/root/.cache/go-build",
               "go-pkg-mod": "/go/pkg/mod"
             }
           skip-extraction: ${{ steps.go-cache.outputs.cache-hit }}

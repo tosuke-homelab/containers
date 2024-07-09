@@ -12,10 +12,8 @@ USER nobody
 FROM --platform=$BUILDPLATFORM golang:1.22 AS builder
 ARG TARGETARCH
 WORKDIR /work
-COPY go.mod go.sum /work
-RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod go mod download
 COPY . /work
-RUN --mount=type=cache,target=/go/pkg/mod \
+RUN --mount=type=cache,sharing=locked,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
     CGO_ENABLED=0 GOARCH=${TARGETARCH} go build -ldflags "-s -w" -o /work/otelcol
 
