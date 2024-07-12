@@ -8,10 +8,9 @@ toolchain go1.22.5
 
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.104.0
-	github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.104.0
-	github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricstransformprocessor v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.104.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.104.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.104.0
@@ -158,6 +157,7 @@ require (
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal v0.104.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter v0.104.0 // indirect
+	github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil v0.104.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl v0.104.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil v0.104.0 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza v0.104.0 // indirect
