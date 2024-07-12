@@ -44,15 +44,12 @@ processors:
     check_interval: 5s
     limit_mib: 512
   batch:
-  attributes:
-    actions:
-      - key: test
-        action: delete
   resource:
     attributes:
       - key: host.name
         value: example
         action: insert
+  transform:
 
 exporters:
   nop:
