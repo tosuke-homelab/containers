@@ -261,4 +261,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver v0.0.0-20240706004922-9f7128a99e45
+replace github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver v0.0.0-20240705152725-6b87fd97d208
