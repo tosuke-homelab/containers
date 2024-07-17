@@ -29,24 +29,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Cache Go modules
-        id: go-cache
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        with:
-          path: |
-            go-pkg-mod
-          key: docker-otelcol-router-${{ hashFiles('otelcol/router/go.sum') }}
-          restore-keys: |
-            docker-otelcol-router-
-      - name: Inject Go Cache
-        uses: reproducible-containers/buildkit-cache-dance@5b6db76d1da5c8b307d5d2e0706d266521b710de # v3
-        with:
-          cache-map: |
-            {
-              "go-pkg-mod": "/go/pkg/mod"
-            }
-          skip-extraction: ${{ steps.go-cache.outputs.cache-hit }}
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5
