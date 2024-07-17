@@ -3,7 +3,8 @@
   "extends": [
     "config:base",
     "helpers:pinGitHubActionDigests",
-    "regexManagers:githubActionsVersions"
+    "customManagers:githubActionsVersions",
+    "customManagers:dockerfileVersions"
   ],
   "postUpdateOptions": ["gomodTidy"],
   "packageRules": [
