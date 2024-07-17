@@ -12,48 +12,7 @@ on:
       - .github/workflows/**
 
 jobs:
-  go-checks:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    defaults:
-      run:
-        working-directory: otelcol/router
-    steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5
-        with:
-          go-version: "1.22"
-      - name: Cache Go modules
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        with:
-          path: |
-            ~/.cache/go-build
-            /go/pkg/mod
-          key: ${{ runner.os }}-go-otelcol-router-${{ hashFiles('otelcol/router/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-otelcol-router-
-
-      - name: Install deps
-        run: go mod download
-
-      - name: Run go generate
-        run: go generate ./...
-      - name: Check for diffs
-        run: |
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "There are changes after running 'go generate'."
-            git diff
-            exit 1
-          fi
-
-      - name: Build otelcol
-        run: go build -o otelcol
-      - name: Validate config
-        run: ./otelcol validate --config=file:./config.yaml
-
   docker:
-    needs: [go-checks]
     runs-on: ubuntu-latest
     permissions:
       contents: read
