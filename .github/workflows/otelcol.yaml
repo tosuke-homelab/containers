@@ -29,6 +29,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: |
+            go-pkg-mod
+            go-cache
+          key: cache-otelcol-router-${{ hashFiles('otelcol/router/manifest.yaml') }}
+          restore-keys: |
+            cache-otelcol-router-
+      - uses: reproducible-containers/buildkit-cache-dance@v3
+        with:
+          cache-map: |
+            {
+              "go-pkg-mod": "/go/pkg/mod",
+              "go-cache": "/root/.cache/go-build"
+            }
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5
