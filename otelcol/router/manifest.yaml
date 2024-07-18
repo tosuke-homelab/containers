@@ -36,4 +36,4 @@ processors:
 
 replaces:
   - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver 9f7128a99e455579cfb754add8c91791933a768f
-  - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza => github.com/tosuke-lab/opentelemetry-collector-contrib/pkg/stanza 6f10810b4394eb50456685817d92a044c526ca9e
+  - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza => github.com/tosuke-lab/opentelemetry-collector-contrib/pkg/stanza 3943b5050d0149c33cecc88d46bc906a2b1d7595
