@@ -45,6 +45,7 @@ jobs:
               "go-pkg-mod": "/go/pkg/mod",
               "go-cache": "/root/.cache/go-build"
             }
+          skip-extraction: ${{steps.cache.outputs.cache-hit}}
 
       - name: Docker meta
         id: meta
