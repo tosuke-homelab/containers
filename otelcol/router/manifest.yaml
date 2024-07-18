@@ -2,37 +2,37 @@ dist:
   name: otelcol
   description: OpenTelemetry Collector for network facilities
   output_path: ./build
-  otelcol_version: 0.105.0
+  otelcol_version: 0.104.0
   debug_compilation: false
 
 connectors:
-  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.105.0
+  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.104.0
 
 receivers:
-  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver v0.105.0
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver v0.104.0
 
 exporters:
-  - gomod: go.opentelemetry.io/collector/exporter/nopexporter v0.105.0
-  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.105.0
-  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.105.0
-  - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.105.0
+  - gomod: go.opentelemetry.io/collector/exporter/nopexporter v0.104.0
+  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.104.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.104.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.104.0
 
 extensions:
-  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.105.0
+  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.104.0
 
 processors:
-  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.105.0
-  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.105.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.105.0
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.104.0
+  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.104.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.104.0
 
 replaces:
   - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver 9f7128a99e455579cfb754add8c91791933a768f
