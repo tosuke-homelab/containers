@@ -29,7 +29,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         id: cache
         with:
           path: |
@@ -37,7 +37,7 @@ jobs:
           key: cache-otelcol-router-${{ hashFiles('otelcol/router/manifest.yaml') }}
           restore-keys: |
             cache-otelcol-router-
-      - uses: reproducible-containers/buildkit-cache-dance@v3
+      - uses: reproducible-containers/buildkit-cache-dance@5b6db76d1da5c8b307d5d2e0706d266521b710de # v3
         with:
           cache-map: |
             {
