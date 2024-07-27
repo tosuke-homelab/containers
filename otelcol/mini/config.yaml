@@ -1,0 +1,68 @@
+extensions:
+  zpages:
+    endpoint: 0.0.0.0:55679
+  basicauth/client:
+    client_auth:
+      username: username
+      password: password
+
+connectors:
+  forward:
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  filelog:
+    include: /var/log/messages
+  journald:
+    directory: /run/log/journal
+    units:
+      - ssh
+    priority: info
+  hostmetrics:
+    scrapers:
+      cpu:
+
+processors:
+  memory_limiter:
+    check_interval: 5s
+    limit_mib: 512
+  batch:
+  resource:
+    attributes:
+      - key: host.name
+        value: example
+        action: insert
+  transform:
+
+exporters:
+  debug:
+    verbosity: detailed
+  otlp:
+    endpoint: injest.otlp.example.com:443
+  otlphttp:
+    endpoint: http://otlphttp.exampe.com
+
+service:
+  extensions: [zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [forward, debug]
+    traces/send:
+      receivers: [forward]
+      processors: [resource, transform]
+      exporters: [otlp, otlphttp]
+    metrics:
+      receivers: [otlp, hostmetrics]
+      processors: [memory_limiter, batch]
+      exporters: [debug]
+    logs:
+      receivers: [otlp, filelog, journald]
+      processors: [memory_limiter, batch]
+      exporters: [debug]
