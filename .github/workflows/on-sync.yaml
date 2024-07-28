@@ -1,0 +1,35 @@
+name: On sync
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      push: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+      build-otelcol: ${{ steps.changed.outputs.workflows_any_changed || steps.changed.outputs.otelcol_any_changed }}
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: changed
+        uses: tj-actions/changed-files@6b2903bdce6310cfbddd87c418f253cf29b2dec9 # v44.5.6
+        with:
+          files_yaml: |
+            workflows: [.github/workflows/**]
+            bird: [bird/**]
+            otelcol: [otelcol/**]
+  build-otelcol:
+    needs: [prepare]
+    if: needs.prepare.outputs.build-otelcol
+    uses: ./.github/workflows/wf-build-otelcol.yaml
+    with:
+      push: ${{ fromJSON(needs.prepare.outputs.push) }}

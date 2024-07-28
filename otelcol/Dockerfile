@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM golang:1.22 AS base
 FROM --platform=$BUILDPLATFORM base AS generate
     WORKDIR /work
     ARG target
-    RUN --mount=type=bind,source=${target}/manifest.yaml,target=manifest.yaml \
+    RUN --mount=type=cache,target=/go/pkg/mod \
+        --mount=type=bind,source=${target}/manifest.yaml,target=manifest.yaml \
         builder --config manifest.yaml --skip-compilation
     WORKDIR /work/build
 
