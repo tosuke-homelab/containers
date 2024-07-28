@@ -13,6 +13,7 @@ on:
 
 jobs:
   docker:
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,28 +30,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        id: cache
-        with:
-          path: |
-            go-cache
-          key: cache-otelcol-router-${{ hashFiles('otelcol/router/manifest.yaml') }}
-          restore-keys: |
-            cache-otelcol-router-
-      - uses: reproducible-containers/buildkit-cache-dance@5b6db76d1da5c8b307d5d2e0706d266521b710de # v3
-        with:
-          cache-map: |
-            {
-              "go-cache": "/root/.cache/go-build"
-            }
-          skip-extraction: ${{steps.cache.outputs.cache-hit}}
+      # - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+      #   id: cache
+      #   with:
+      #     path: |
+      #       go-cache
+      #     key: cache-otelcol-router-${{ hashFiles('otelcol/router/manifest.yaml') }}
+      #     restore-keys: |
+      #       cache-otelcol-router-
+      # - uses: reproducible-containers/buildkit-cache-dance@5b6db76d1da5c8b307d5d2e0706d266521b710de # v3
+      #   with:
+      #     cache-map: |
+      #       {
+      #         "go-cache": "/root/.cache/go-build"
+      #       }
+      #     skip-extraction: ${{steps.cache.outputs.cache-hit}}
 
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5
         with:
           images: |
-            ghcr.io/tosuke-homelab/otelcol/router
+            ghcr.io/tosuke-homelab/otelcol
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha
