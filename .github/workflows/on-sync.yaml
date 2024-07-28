@@ -15,10 +15,9 @@ jobs:
     outputs:
       push: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
       build-otelcol: ${{ steps.changed.outputs.workflows_any_changed || steps.changed.outputs.otelcol_any_changed }}
+      build-bird: ${{ steps.changed.outputs.workflows_any_changed || steps.changed.outputs.bird_any_changed }}
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          fetch-depth: 0
       - name: Get changed files
         id: changed
         uses: tj-actions/changed-files@6b2903bdce6310cfbddd87c418f253cf29b2dec9 # v44.5.6
@@ -31,5 +30,11 @@ jobs:
     needs: [prepare]
     if: needs.prepare.outputs.build-otelcol
     uses: ./.github/workflows/wf-build-otelcol.yaml
+    with:
+      push: ${{ fromJSON(needs.prepare.outputs.push) }}
+  build-bird:
+    needs: [prepare]
+    if: needs.prepare.outputs.build-bird
+    uses: ./.github/workflows/wf-build-bird.yaml
     with:
       push: ${{ fromJSON(needs.prepare.outputs.push) }}
