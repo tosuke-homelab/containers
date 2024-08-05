@@ -21,7 +21,7 @@ FROM --platform=${BUILDPLATFORM} debian:12-slim AS builder-linux-arm64
 ENV TRIPLE=aarch64-linux-gnu
 
 # linux/mips
-FROM --platform=${BUILDPLATFORM} debian:9-slim AS builder-linux-mips
+FROM --platform=${BUILDPLATFORM} debian:12-slim AS builder-linux-mips
 COPY <<EOF /etc/apt/sources.list
 deb http://archive.debian.org/debian stretch main
 deb http://archive.debian.org/debian-security stretch/updates main
