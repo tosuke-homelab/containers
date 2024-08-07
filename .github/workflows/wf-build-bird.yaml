@@ -42,7 +42,7 @@ jobs:
             type=ref,event=pr
             type=sha,prefix=v${{ env.BIRD_VERSION }}-
       - name: Build and push artifacts
-        uses: docker/bake-action@a4d7f0b5b91c14a296d792d4ec53a9db17f02e67 # v5.5.0
+        uses: docker/bake-action@8cea75c238fa977d2ac1fa69d09604b3b740f809 # v5.6.1
         with:
           push: ${{ inputs.push }}
           workdir: bird
