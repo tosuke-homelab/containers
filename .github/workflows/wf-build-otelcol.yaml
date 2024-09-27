@@ -39,7 +39,7 @@ jobs:
             type=ref,event=pr
             type=sha
       - name: Build and push artifacts
-        uses: docker/bake-action@76cc8060bdff6d632a465001e4cf300684c5472c # v5.7.0
+        uses: docker/bake-action@e626c7390c9f95508a135a89e65ec698e061fb2a # v5.8.0
         with:
           push: ${{ inputs.push }}
           workdir: otelcol
