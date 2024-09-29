@@ -31,7 +31,7 @@ jobs:
     if: needs.prepare.outputs.build-otelcol
     uses: ./.github/workflows/wf-build-otelcol.yaml
     with:
-      push: ${{ fromJSON(needs.prepare.outputs.push) }}
+      push: true
   build-bird:
     needs: [prepare]
     if: needs.prepare.outputs.build-bird
