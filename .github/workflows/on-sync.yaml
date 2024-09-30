@@ -28,13 +28,13 @@ jobs:
             otelcol: [otelcol/**]
   build-otelcol:
     needs: [prepare]
-    if: needs.prepare.outputs.build-otelcol
+    if: ${{ fromJSON(needs.prepare.outputs.build-otelcol) }}
     uses: ./.github/workflows/wf-build-otelcol.yaml
     with:
       push: true
   build-bird:
     needs: [prepare]
-    if: needs.prepare.outputs.build-bird
+    if: ${{ fromJSON(needs.prepare.outputs.build-bird)}}
     uses: ./.github/workflows/wf-build-bird.yaml
     with:
       push: ${{ fromJSON(needs.prepare.outputs.push) }}
