@@ -3,7 +3,7 @@
 ARG target
 ARG baseimage=distroless
 
-FROM --platform=$BUILDPLATFORM golang:1.22 AS base
+FROM --platform=$BUILDPLATFORM golang:1.23 AS base
 # renovate: datasource=go depName=go.opentelemetry.io/collector/cmd/builder
 ARG OTELCOL_BUILDER_VERSION=v0.106.0
 RUN go install go.opentelemetry.io/collector/cmd/builder@${OTELCOL_BUILDER_VERSION}
