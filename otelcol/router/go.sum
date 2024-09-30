@@ -662,8 +662,8 @@ github.com/tklauser/numcpus v0.6.1 h1:ng9scYS7az0Bk4OZLvrNXNSAO2Pxr1XXRAPyjhIx+F
 github.com/tklauser/numcpus v0.6.1/go.mod h1:1XfjsgE2zo8GVw7POkMbHENHzVg3GzmoZ9fESEdAacY=
 github.com/tosuke-lab/opentelemetry-collector-contrib/pkg/stanza v0.0.0-20240718102716-3943b5050d01 h1:PS3LDv8HDS7VeuGM9pJHhFdi66P80wGCWv5Oyn3MG7Q=
 github.com/tosuke-lab/opentelemetry-collector-contrib/pkg/stanza v0.0.0-20240718102716-3943b5050d01/go.mod h1:8DCdU7V1JdcnZtk3X1OvqI5wjpKiULf/wmqhLpsldAc=
-github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver v0.0.0-20240706004922-9f7128a99e45 h1:bMwr6qNiLK7YxPJ7eQ0hs04N6hyHpqLYJYla2ri5qvo=
-github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver v0.0.0-20240706004922-9f7128a99e45/go.mod h1:HWAuwfK6xONEoQugRLVq8V6mitM3Y/rTtL9TRMFVSkA=
+github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver v0.0.0-20240930173336-d1e158de67cc h1:58TmQR2yKjvG6AONuFuevc8QlkPe56yWOw63UdQV18w=
+github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver v0.0.0-20240930173336-d1e158de67cc/go.mod h1:eieO9gROLSpw/TNwXPNwb+NUuyAnpEsP0isCNpMGmno=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/ua-parser/uap-go v0.0.0-20240611065828-3a4781585db6 h1:SIKIoA4e/5Y9ZOl0DCe3eVMLPOQzJxgZpfdHHeauNTM=
 github.com/ua-parser/uap-go v0.0.0-20240611065828-3a4781585db6/go.mod h1:BUbeWZiieNxAuuADTBNb3/aeje6on3DhU3rpWsQSB1E=

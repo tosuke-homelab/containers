@@ -35,5 +35,5 @@ processors:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.110.0
 
 replaces:
-  - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver 9f7128a99e455579cfb754add8c91791933a768f
+  - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver d1e158de67cce155790bad06b8912e73a4a3f2ed
   - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza => github.com/tosuke-lab/opentelemetry-collector-contrib/pkg/stanza 3943b5050d0149c33cecc88d46bc906a2b1d7595
