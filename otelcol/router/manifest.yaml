@@ -16,6 +16,7 @@ receivers:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.110.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.110.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver v0.110.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/dockerstatsreceiver v0.110.0
 
 exporters:
   - gomod: go.opentelemetry.io/collector/exporter/nopexporter v0.110.0
@@ -26,6 +27,7 @@ exporters:
 extensions:
   - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.110.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.110.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension v0.110.0
 
 processors:
   - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.110.0
