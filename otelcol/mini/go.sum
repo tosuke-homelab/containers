@@ -174,8 +174,6 @@ github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil v0.110.0
 github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil v0.110.0/go.mod h1:zLtbGLswPAKzTHM4C1Pcxb+PgNHgo6aGVZQtQaeBtec=
 github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza v0.110.0 h1:cgxRB2CsWdmsHiOC03DD+OCuEWG1bQfbEL1vi52H+08=
 github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza v0.110.0/go.mod h1:SjMzyazCHSzyufe7M08rFiZdKXXBt+g+7kuJMmw99/8=
-github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.110.0 h1:8eTDHIUvGWsPLM4jeoC/0818FYBe7LyNViP+Ufk7YsM=
-github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.110.0/go.mod h1:3wwZ0htVAU5x/3cEdSJ+3wufy5n2KWjqP2uxp6SVdwY=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.110.0 h1:OH+rE7abq+mNvJTS3frmhAQ6sFLSc3wv+CMsmqzlQHw=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.110.0/go.mod h1:1JaOwB833dlUgj+aKS9r/ATZt0VTYIg6KNd1xur+qs8=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.110.0 h1:7qIVo3gsBbNITaW1aWItNkDnFk/5TEb69MeQRZpSxSY=
@@ -351,6 +349,8 @@ go.opentelemetry.io/collector/processor/processorprofiles v0.110.0 h1:bFzfDON5xP
 go.opentelemetry.io/collector/processor/processorprofiles v0.110.0/go.mod h1:psxTLRj+C+H91DG+KMnyycUCTKWtGMhOkGCpO0Pb3CA=
 go.opentelemetry.io/collector/receiver v0.110.0 h1:uv+mCadEpWT7yoRvMil1bY44aZbZ7y4oAqsjvypf+t4=
 go.opentelemetry.io/collector/receiver v0.110.0/go.mod h1:rTNskk6R+8bU4dlAB1IgdwkIiBl44+C6qcvdyarAyF0=
+go.opentelemetry.io/collector/receiver/otlpreceiver v0.110.0 h1:F1TsgyWimClOvAfP7nUbKChPfoNt8tThI64WNCutkAE=
+go.opentelemetry.io/collector/receiver/otlpreceiver v0.110.0/go.mod h1:MuLDagbS+v3iUwMSN/iJPWiDMLPEYxeYolzc+T2ElU0=
 go.opentelemetry.io/collector/receiver/receiverprofiles v0.110.0 h1:QDbKYVQFlQJfo05qS8O0zyZghxeGmxlVUKIuIJQST6U=
 go.opentelemetry.io/collector/receiver/receiverprofiles v0.110.0/go.mod h1:DsNqyNWfax62zb1y2ek2ERzrEAiaJocSfc+QLtHNnxI=
 go.opentelemetry.io/collector/semconv v0.110.0 h1:KHQnOHe3gUz0zsxe8ph9kN5OTypCFD4V+06AiBTfeNk=
