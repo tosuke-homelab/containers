@@ -21,32 +21,7 @@
       ]
     }
   ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["(^|/)manifest\\.ya?ml$"],
-      "matchStrings": [
-        "gomod:\\s*(?<depName>[^\\s]+)\\s+(?<currentValue>[\\w\\.\\-]+)"
-      ],
-      "datasourceTemplate": "go",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["(^|/)manifest\\.ya?ml$"],
-      "matchStrings": ["otelcol_version:\\s*(?<currentValue>[\\w\\.\\-]+)"],
-      "depNameTemplate": "go.opentelemetry.io/collector/otelcol",
-      "datasourceTemplate": "go",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["\\.go$"],
-      "matchStrings": [
-        "//go:generate go run (?<depName>[^\\s]+)@(?<currentValue>[\\w\\.\\-]+)"
-      ],
-      "datasourceTemplate": "go",
-      "versioningTemplate": "semver"
-    }
-  ]
+  "ocb": {
+    "fileMatch": ["(^|/)manifest\\.ya?ml$"]
+  }
 }
