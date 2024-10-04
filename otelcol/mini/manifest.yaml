@@ -2,7 +2,7 @@ dist:
   name: otelcol
   description: OpenTelemetry Collector with minimal components
   output_path: build
-  otelcol_version: 0.110.0
+  otelcol_version: 0.111.0
   debug_compilation: false
 
 connectors:
