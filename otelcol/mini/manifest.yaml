@@ -2,7 +2,6 @@ dist:
   name: otelcol
   description: OpenTelemetry Collector with minimal components
   output_path: build
-  otelcol_version: 0.110.0
   debug_compilation: false
 
 connectors:
@@ -28,3 +27,10 @@ processors:
   - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.110.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.110.0
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.110.0
+
+providers:
+  - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.16.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/fileprovider v1.16.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/httpprovider v0.110.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/httpsprovider v0.110.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/yamlprovider v0.110.0
