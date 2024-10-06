@@ -13,23 +13,22 @@ WORKDIR /work
 ARG target
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=bind,source=${target}/manifest.yaml,target=manifest.yaml \
-    builder --config manifest.yaml --skip-compilation
+    builder --config manifest.yaml --skip-compilation --skip-get-modules
 WORKDIR /work/build
+COPY ${target}/go.sum go.sum
+RUN --mount=type=cache,target=/go/pkg/mod \
+    go mod tidy
 
 FROM scratch AS gosum
 COPY --from=generate /work/build/go.sum go.sum
 
 FROM --platform=$BUILDPLATFORM generate AS build
-ARG target
-# RUN --mount=type=cache,target=/go/pkg/mod \
-#     --mount=type=bind,source=${target}/go.sum,target=pin-go.sum \
-#     diff -u go.sum pin-go.sum
 ARG TARGETOS
 ARG TARGETARCH
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
     CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} \
-    go build -mod readonly -ldflags "-s -w" -o /work/build/otelcol
+    go build -trimpath -ldflags "-s -w" -o /work/build/otelcol
 
 # systemd based image
 FROM debian:bookworm-slim AS base-systemd
