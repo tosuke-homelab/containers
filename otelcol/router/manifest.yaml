@@ -36,11 +36,11 @@ processors:
   - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.111.0
 
 providers:
-  - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.16.0
-  - gomod: go.opentelemetry.io/collector/confmap/provider/fileprovider v1.16.0
-  - gomod: go.opentelemetry.io/collector/confmap/provider/httpprovider v0.110.0
-  - gomod: go.opentelemetry.io/collector/confmap/provider/httpsprovider v0.110.0
-  - gomod: go.opentelemetry.io/collector/confmap/provider/yamlprovider v0.110.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.17.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/fileprovider v1.17.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/httpprovider v1.17.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/httpsprovider v1.17.0
+  - gomod: go.opentelemetry.io/collector/confmap/provider/yamlprovider v1.17.0
 
 replaces:
   - github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver => github.com/tosuke-lab/opentelemetry-collector-contrib/receiver/podmanreceiver d1e158de67cce155790bad06b8912e73a4a3f2ed
