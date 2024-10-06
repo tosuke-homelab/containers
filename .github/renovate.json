@@ -9,14 +9,10 @@
   "postUpdateOptions": ["gomodTidy"],
   "packageRules": [
     {
-      "groupName": "OpenTelemetry Collector Monorepo",
-      "matchDatasources": ["go"],
-      "matchPackagePrefixes": ["go.opentelemetry.io/collector/"]
-    },
-    {
-      "groupName": "OpenTelemetry Collector Contrib Monorepo",
+      "groupName": "OpenTelemetry Collector",
       "matchDatasources": ["go"],
       "matchPackagePrefixes": [
+        "go.opentelemetry.io/collector/",
         "github.com/open-telemetry/opentelemetry-collector-contrib/"
       ]
     }
