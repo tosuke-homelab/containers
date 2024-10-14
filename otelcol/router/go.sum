@@ -188,6 +188,8 @@ github.com/fatih/color v1.16.0/go.mod h1:fL2Sau1YI5c0pdGEVCbKQbLXB6edEj1ZgiY4Nij
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/form3tech-oss/jwt-go v3.2.2+incompatible/go.mod h1:pbq4aXjuKjdthFRnoDwaVPLA+WlJuPGy+QneDUgJi2k=
+github.com/frankban/quicktest v1.14.6 h1:7Xjx+VpznH+oBnejlPUj8oUpdxnVs4f8XU8WnHkI4W8=
+github.com/frankban/quicktest v1.14.6/go.mod h1:4ptaffx2x8+WTWXmUCuVU6aPUX1/Mz7zb5vbUoiM6w0=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.7.0 h1:8JEhPFa5W2WU7YfeZzPNqzMP6Lwt7L2715Ggo0nosvA=
 github.com/fsnotify/fsnotify v1.7.0/go.mod h1:40Bi/Hjc2AVfZrqy+aj+yEI+/bRxZnMJyTJwOpGvigM=
@@ -557,6 +559,10 @@ github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusrem
 github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.111.0/go.mod h1:sBcqg1DlNC6V8e455vASnIrr8LJX7stQ8V3wlbCsIhM=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.111.0 h1:a8DN+AlmXSzhl2umW6TCKIkR7390dwbGOS4gfxUQpoM=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.111.0/go.mod h1:9GaKXz1aAkdFNz4R053dt19v0q5IjgIA1P0Ua0kOVPw=
+github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer v0.111.0 h1:TcJ6/abaapOCRP0EfMaWbLavFF05dyFe+i99k4ABumM=
+github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer v0.111.0/go.mod h1:betAqGGfDFb8SLyMYBwH9BQyB9wzxWOWXXC/Ht6/kas=
+github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/dockerobserver v0.111.0 h1:w+WuYgdPpak1XzQh+RUXGaTiwBzIOlL+xfg1eE0XatM=
+github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/dockerobserver v0.111.0/go.mod h1:augVLlrOmDTXR/TcpG4ZkpnTsh629dmrCkgW5zpVySE=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension v0.111.0 h1:m/u2iRttl/nEjp0EZ9w371LLAqogw0tDn+wPU6D7ArY=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension v0.111.0/go.mod h1:mmkCl306sRZYt/7uNmjvuRRvbe/xUDSDm8fEAGSSMKI=
 github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage v0.111.0 h1:n1p2DedLvPEN1XEx26s1PR1PCuXTgCY4Eo+kDTq7q0s=
@@ -565,6 +571,8 @@ github.com/open-telemetry/opentelemetry-collector-contrib/internal/common v0.111
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/common v0.111.0/go.mod h1:I7nEkR7TDPFw162jYtPJZVevkniQfQ0FLIFuu2RGK3A=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal v0.111.0 h1:Hh3Lt6GIw/jMfCSJ5XjBoZRmjZ1pbJJu6Xi7WrDTUi0=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal v0.111.0/go.mod h1:rQ9lQhijXIJIT5UGuwiKoEcWW6bdWJ4fnO+PndfuYEw=
+github.com/open-telemetry/opentelemetry-collector-contrib/internal/docker v0.111.0 h1:AviHrU5O4Dho+/4Jb4zQ4A3gYAxBhy3RwYQuZY8bXkM=
+github.com/open-telemetry/opentelemetry-collector-contrib/internal/docker v0.111.0/go.mod h1:0gILoAExLgqNNcSsLxIRPUlLfDP+OKbDk3cTpB3l73Y=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter v0.111.0 h1:AFzcAfNereWXW8SP5rPtslxv8kNo3LCnnCjUzl7ZCVM=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter v0.111.0/go.mod h1:fEtKy/bUTeRKDblbFM9IyIA/QjhepmPs36TtjO1N7mo=
 github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig v0.111.0 h1:jKLX/Ojg8bcHtUaoS585CMbvNJdEFHZjdx233SRdf3s=
@@ -593,6 +601,8 @@ github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometh
 github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheusremotewrite v0.111.0/go.mod h1:uDdKEduyex67rYq75wyUJC1Wl0QhrqBE09WDa1SznMA=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.111.0 h1:B6o+FR0+9zPhjX97ABREAlHrqLKJCOodrgh4UoYWvHs=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.111.0/go.mod h1:FCRWxxbf+uIXnz1Q3vsOQkzsw30aA6x9ylaYXhzX8jM=
+github.com/open-telemetry/opentelemetry-collector-contrib/processor/logstransformprocessor v0.111.0 h1:60NMfD7WMOHKCkV+GVM8HRqWMB4EAbqEY5sF9gYUG1Y=
+github.com/open-telemetry/opentelemetry-collector-contrib/processor/logstransformprocessor v0.111.0/go.mod h1:/qECmbWAqic6qoYp3oBmAFRpnKbJdGuk9iDdMhwHYfw=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.111.0 h1:Ce2Ucsp+DOk6OTYsAp8ocQ0NbGPkYXYDlIp/XJeeMck=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.111.0/go.mod h1:k49ONUacPMoCrfUpBJES5MdriG90hvcDKvr9abTItRc=
 github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.111.0 h1:KkHeODEukk2RveIEHvV5dPe06oA2PKAKbpjVZPtCRsQ=
@@ -607,6 +617,8 @@ github.com/open-telemetry/opentelemetry-collector-contrib/receiver/k8sclusterrec
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/k8sclusterreceiver v0.111.0/go.mod h1:Y9MBRiwDRAR8TuUK9dbhcM3X8tch8xnMFCiCudmh7r8=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.111.0 h1:abeLe2WANVWpnNua41Aa+RTmYYGs0gk1oQRd2/XH7Uo=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.111.0/go.mod h1:Nij85WmJr/+q0HeAvGulEYxFE+PMlhFelPWN6yzCuuw=
+github.com/open-telemetry/opentelemetry-collector-contrib/receiver/receivercreator v0.111.0 h1:XIgynRPC/r2x+pc+f2VbtAdBsueejnhA9zBE/bmXL/c=
+github.com/open-telemetry/opentelemetry-collector-contrib/receiver/receivercreator v0.111.0/go.mod h1:xVSuQG3cKqWa/jp7wLviJ00CEK0qU0HCp+a6u8G7m9c=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.111.0 h1:TEI9IqSZxK9qSzVW7U+xY3eU5eovo8ZXz/HPOyGlGXE=
 github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.111.0/go.mod h1:jCSPPHTYzGLCiCFOWX/vS2hidD/1o9z0cEiGwcMYnOc=
 github.com/opencontainers/go-digest v1.0.0 h1:apOUWs51W5PlhuyGyz9FCeeBIOUDA/6nW8Oi/yOhh5U=
@@ -698,6 +710,8 @@ github.com/sirupsen/logrus v1.6.0/go.mod h1:7uNnSEd1DgxDLC74fIahvMZmmYsHGZGEOFrf
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
 github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
 github.com/spf13/afero v1.2.2/go.mod h1:9ZxEEn6pIJ8Rxe320qSDBk6AsU0r9pR7Q4OcevTdifk=
+github.com/spf13/cast v1.7.0 h1:ntdiHjuueXFgm5nzDRdOS4yfT43P5Fnud6DH50rz/7w=
+github.com/spf13/cast v1.7.0/go.mod h1:ancEpBxwJDODSW/UG4rDrAqiKolqNNh2DX3mk86cAdo=
 github.com/spf13/cobra v1.8.1 h1:e5/vxKd/rZsfSJMUX1agtjeTDf+qv1/JdBF8gg5k9ZM=
 github.com/spf13/cobra v1.8.1/go.mod h1:wHxEcudfqmLYa8iTfL+OuZPbBZkmvliBWKIezN3kD9Y=
 github.com/spf13/pflag v0.0.0-20170130214245-9ff6c6923cff/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
