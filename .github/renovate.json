@@ -1,24 +1,31 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     "helpers:pinGitHubActionDigests",
     "customManagers:githubActionsVersions",
     "customManagers:dockerfileVersions"
   ],
-  "postUpdateOptions": ["gomodTidy"],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
   "packageRules": [
     {
       "groupName": "OpenTelemetry Collector",
-      "matchDatasources": ["go", "docker"],
-      "matchPackagePrefixes": [
-        "go.opentelemetry.io/collector/",
-        "otel/opentelemetry-collector-builder",
-        "github.com/open-telemetry/opentelemetry-collector-contrib/"
+      "matchDatasources": [
+        "go",
+        "docker"
+      ],
+      "matchPackageNames": [
+        "go.opentelemetry.io/collector/{/,}**",
+        "otel/opentelemetry-collector-builder{/,}**",
+        "github.com/open-telemetry/opentelemetry-collector-contrib/{/,}**"
       ]
     }
   ],
   "ocb": {
-    "fileMatch": ["(^|/)manifest\\.ya?ml$"]
+    "fileMatch": [
+      "(^|/)manifest\\.ya?ml$"
+    ]
   }
 }
