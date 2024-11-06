@@ -10,9 +10,10 @@
   "packageRules": [
     {
       "groupName": "OpenTelemetry Collector",
-      "matchDatasources": ["go"],
+      "matchDatasources": ["go", "docker"],
       "matchPackagePrefixes": [
         "go.opentelemetry.io/collector/",
+        "otel/opentelemetry-collector-builder",
         "github.com/open-telemetry/opentelemetry-collector-contrib/"
       ]
     }

@@ -2,10 +2,8 @@
 
 ARG target
 ARG baseimage=distroless
-# renovate: datasource=go depName=go.opentelemetry.io/collector/cmd/builder
-ARG OTELCOL_BUILDER_VERSION=0.112.0
 
-FROM --platform=$BUILDPLATFORM otel/opentelemetry-collector-builder:${OTELCOL_BUILDER_VERSION} AS ocb
+FROM --platform=$BUILDPLATFORM otel/opentelemetry-collector-builder:0.112.0 AS ocb
 
 FROM --platform=$BUILDPLATFORM golang:1.23 AS builder
 COPY --from=ocb /usr/local/bin/ocb /usr/local/bin/ocb
