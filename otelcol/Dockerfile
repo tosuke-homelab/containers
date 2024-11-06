@@ -2,18 +2,20 @@
 
 ARG target
 ARG baseimage=distroless
-
-FROM --platform=$BUILDPLATFORM golang:1.23 AS base
 # renovate: datasource=go depName=go.opentelemetry.io/collector/cmd/builder
-ARG OTELCOL_BUILDER_VERSION=v0.112.0
-RUN go install go.opentelemetry.io/collector/cmd/builder@${OTELCOL_BUILDER_VERSION}
+ARG OTELCOL_BUILDER_VERSION=0.112.0
 
-FROM --platform=$BUILDPLATFORM base AS generate
+FROM --platform=$BUILDPLATFORM otel/opentelemetry-collector-builder:${OTELCOL_BUILDER_VERSION} AS ocb
+
+FROM --platform=$BUILDPLATFORM golang:1.23 AS builder
+COPY --from=ocb /usr/local/bin/ocb /usr/local/bin/ocb
+
+FROM --platform=$BUILDPLATFORM builder AS generate
 WORKDIR /work
 ARG target
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=bind,source=${target}/manifest.yaml,target=manifest.yaml \
-    builder --config manifest.yaml --skip-compilation --skip-get-modules
+    ocb --config manifest.yaml --skip-compilation --skip-get-modules
 WORKDIR /work/build
 COPY ${target}/go.sum go.sum
 RUN --mount=type=cache,target=/go/pkg/mod \
