@@ -31,7 +31,7 @@ jobs:
           changes: ${{ toJSON(steps.changes.outputs)}}
         with:
           script: |
-            const { changed_keys } = JSON.parse(process.env.changes)
+            const { changed_keys = "" } = JSON.parse(process.env.changes)
             return {
               build: {
                 otelcol: changed_keys.includes("workflows") || changed_keys.includes("otelcol"),
