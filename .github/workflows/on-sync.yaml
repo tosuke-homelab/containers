@@ -44,6 +44,7 @@ jobs:
     uses: ./.github/workflows/wf-build-otelcol.yaml
     with:
       push: true
+    secrets: inherit
   build-bird:
     needs: [prepare]
     if: ${{ fromJSON(needs.prepare.outputs.result).build.bird }}
