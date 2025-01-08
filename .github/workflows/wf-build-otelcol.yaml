@@ -39,7 +39,7 @@ jobs:
             type=ref,event=pr
             type=sha
       - name: Build and push artifacts
-        uses: docker/bake-action@3fc70e1131fee40a422dd8dd0ff22014ae20a1f3 # v5.11.0
+        uses: docker/bake-action@5ca506d06f70338a4968df87fd8bfee5cbfb84c7 # v6.0.0
         env:
           ON_DEFAULT_BRANCH: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
         with:
