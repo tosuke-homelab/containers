@@ -45,6 +45,7 @@ jobs:
         with:
           push: ${{ inputs.push }}
           workdir: otelcol
+          source: .
           # Tags are computed from DOCKER_METADATA_OUTPUT_TAGS (See. docker/metadata-action#398)
           files: |
             docker-bake.hcl
