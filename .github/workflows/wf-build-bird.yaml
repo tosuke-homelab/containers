@@ -42,12 +42,13 @@ jobs:
             type=ref,event=pr
             type=sha,prefix=v${{ env.BIRD_VERSION }}-
       - name: Build and push artifacts
-        uses: docker/bake-action@3fc70e1131fee40a422dd8dd0ff22014ae20a1f3 # v5.11.0
+        uses: docker/bake-action@7bff531c65a5cda33e52e43950a795b91d450f63 # v6.3.0
         env:
           ON_DEFAULT_BRANCH: ${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
         with:
           push: ${{ inputs.push }}
           workdir: bird
+          source: .
           files: |
             docker-bake.hcl
             ${{ steps.meta.outputs.bake-file }}
