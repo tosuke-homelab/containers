@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 ARG bird_version
 
-FROM --platform=${BUILDPLATFORM} curlimages/curl:8.12.0 AS src
+FROM --platform=${BUILDPLATFORM} curlimages/curl:8.12.1 AS src
 ARG bird_version
 RUN curl -s -o bird.tar.gz https://bird.network.cz/download/bird-${bird_version}.tar.gz
 RUN tar -xzf bird.tar.gz
