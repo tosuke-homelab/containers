@@ -3,7 +3,7 @@
 ARG target
 ARG baseimage=distroless
 
-FROM --platform=$BUILDPLATFORM otel/opentelemetry-collector-builder:0.114.0 AS ocb
+FROM --platform=$BUILDPLATFORM otel/opentelemetry-collector-builder:0.142.0 AS ocb
 
 FROM --platform=$BUILDPLATFORM golang:1.24 AS builder
 COPY --from=ocb /usr/local/bin/ocb /usr/local/bin/ocb
